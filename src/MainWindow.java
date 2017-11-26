@@ -1,6 +1,6 @@
 //import java.util.Scanner;
 import java.io.File;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.IOException;
 import java.awt.*;
 //import java.awt.event.*;
@@ -14,132 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFileChooser; 
 import javax.swing.JFrame;
 import javax.swing.JLabel; 
-class  GraphViz{
-    private String runPath = "";
-    private String dotPath = ""; 
-    private String runOrder="";
-    private String dotCodeFile="dotcode.txt";
-    private String resultGif="dotGif";
-    private StringBuilder graph = new StringBuilder();
 
-    Runtime runtime=Runtime.getRuntime();
-
-    public void run() {
-        File file=new File(runPath);
-        file.mkdirs();
-        writeGraphToFile(graph.toString(), runPath);
-        creatOrder();
-        try {
-            runtime.exec(runOrder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void creatOrder(){
-        runOrder+=dotPath+" ";
-        runOrder+=runPath;
-        runOrder+="\\"+dotCodeFile+" ";
-        runOrder+="-T jpg ";
-        runOrder+="-o ";
-        runOrder+=runPath;
-        runOrder+="\\"+resultGif+".jpg";
-        System.out.println(runOrder);
-    }
-
-    public void writeGraphToFile(String dotcode, String filename) {
-        try {
-            File file = new File(filename+"\\"+dotCodeFile);
-            if(!file.exists()){
-                file.createNewFile();
-            }
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(dotcode.getBytes());
-            fos.close();
-        } catch (java.io.IOException ioe) { 
-            ioe.printStackTrace();
-        }
-     }  
-
-    public GraphViz(String runPath,String dotPath,String nameGraph) {
-        this.runPath=runPath;
-        this.dotPath=dotPath;
-		this.resultGif=nameGraph;
-    }
-
-    public void add(String line) {
-        graph.append("\t"+line);
-    }
-
-    public void addln(String line) {
-        graph.append("\t"+line + "\n");
-    }
-
-    public void addln() {
-        graph.append('\n');
-    }
-
-    public void start_graph() {
-        graph.append("digraph G {\n") ;
-    }
-
-    public void end_graph() {
-        graph.append("}") ;
-    }   
-}
-
-class graph {//图的结构
-	static final int M=50;
-	int [][]link=new int[M][M];
-	String []point=new String[50];
-    int point_num;
-    graph() {
-    	int i,j;
-    	this.point_num=0;
-    	for(i=0;i<M;i++)
-    	{
-    		this.point[i]=null;
-    		for(j=0;j<M;j++)
-    		{
-    			this.link[i][j]=0;
-    		}
-    	}
-    }
-    int Search(String ipt)
-    {
-    	int i;
-    	for(i=0;i<this.point_num;i++)
-    	{
-    		if(this.point[i].equals(ipt))
-    		   return i;
-    	}
-    	return -1;
-    }
-    int[] Show(String A)
-    {
-    	int[] ans=new int[M];
-    	int i,posA,posAns=0;
-    	for(i=0;i<this.point_num;i++)
-    	{
-    		ans[i]=-1;
-    	}
-    	posA=this.Search(A);
-    	if(posA==-1)
-    	{
-    		return ans;
-    	}
-    	for(i=0;i<this.point_num;i++)
-    	{
-    		if(this.link[posA][i]>0) 
-    		{
-    			ans[posAns]=i;
-    			posAns++;
-    		}
-    	}
-    	return ans;
-    }
-    
-}
 
 class FunctionWindows extends Frame implements ActionListener//GUI主体框架定义
 {
@@ -237,7 +112,6 @@ class FunctionWindows extends Frame implements ActionListener//GUI主体框架定义
 		btn31.setBounds(80, 350, 80, 40);
 		txa32.setBounds(100, 240, 440, 100);
 		btn32.setBounds(480, 350, 80, 40);
-		
 		txa32.setEditable(false);
 		frm3.add(txa31);
 		frm3.add(txa32);
